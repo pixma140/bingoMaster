@@ -18,22 +18,24 @@
 		<meta charset="utf-8">
 	</head>
 	
-	<body>
-		<div style="width:100%; margin-top: 2em;">                    
-		    <div style="width: 75%; margin: 0 auto;">
+	<body style="background-color: black; color: white; background-repeat: no-repeat;">	<!-- background-image: url('flames.jpg'); -->
+	
+		<div style="width:100%; margin-top: 1em;">                    
+		    <div style="width: 95%; margin: 0 auto;">
 				<!-- <h1>App - <small>Gezogene Zahlen: <span id="myAnz">0</span> - <span id="myNumb"></span></small></h1> -->
-				<h1>Bingo App - <small>Anzahl Zahlen: <span id="myAnz">0</span> - <span id="mySearch">Gesucht wird eine volle Reihe!</span></small></h1>				
-				<h3><small>Gezogene Zahlen: <span id="myNumb"></span></small></h3>				
-				
+				<h2>Bingo Master - <small>Anzahl Zahlen: <span id="myAnz" style="font-weight: bold;">0</span> - Letzte Gezogene: <span id="myLast" style="font-weight: bold;"></span> - <span id="mySearch">Gesucht wird <b>eine volle Reihe!</b></span></small></h2>
+				<h3><small>Bereits gezogene Zahlen:   <span id="myNumb"></span></small></h3>
+				<!-- <h3><small>Gezogene Zahlen (unsort): <span id="myNumbUnsort"></span></small></h3> <!-- DEBUG ARRAY -->
+			
 				<hr>
 				
-				<div id="buttonList">
+				<div id="buttonList" style="text-align: center; background-color: black; opacity:0.75;"> <!-- margin: 0 auto; background-color: black; opacity:0.75; -->
 					<!-- LOOOL -->
 				</div>
 				
 				<hr>
 				
-				<div id="bingoList">
+				<div id="bingoList" style="display: flex; align-items: center; justify-content: center;"> <!--  -->
 					<!-- LOOOL -->
 				</div>
 				
@@ -41,114 +43,136 @@
 					<!-- LOOOL -->
 				</div>
 				
-				<script>
-				
-				var counter = 0;
-				var numberArray = [];
-				var state = 0;
-				
-				$(document).ready(function(){								
-					for (var i = 1; i <= 90; i++) {
-						//$("#buttonList").append("<input id='myBtn" + i + "' type='button' style='width: 9%; height:50px; text-align: center;' onclick='lol(" + i + ")' class='btn btn-outline-danger m-1' value='" + i + "'/>");
-						$("#buttonList").append("<input id='myBtn" + i + "' type='button' style='width: 9%; text-align: center; height:50px; text-align: center;' onclick='lol(" + i + ")' class='btn btn-danger m-1' value='" + i + "'/>");
-						
-						// how many buttons per row
-						/*if (i % 25 == 0) {
-							$("#buttonList").append("<br>");
-						}*/
-					}
-					
-					$("#bingoList").append("<input id='myBtnBingo0' type='button' style='width: 32%; height:50px; text-align: center;' onclick='bingo(0)' class='btn btn-dark m-1' value='1. Freigetränk'/>");					
-					$("#bingoList").append("<input id='myBtnBingo1' type='button' style='width: 32%; height:50px; text-align: center;' onclick='bingo(1)' class='btn btn-dark m-1' value='2. Freigetränk'/>");
-					$("#bingoList").append("<input id='myBtnBingo2' type='button' style='width: 32%; height:50px; text-align: center;' onclick='bingo(2)' class='btn btn-dark m-1' value='Hauptpreis'/>");
-				});
-				
-				function lol(myVar) {
-					if($('#myBtn' + myVar).hasClass("btn btn-danger m-1")) {
-					
-						if (myVar == 1) {
-							alert("Und da ist sie, die kleinste Zahl im Spiel");
-						}						
-						if (myVar == 63) {
-							alert("Beste Zahl der Welt");
-						}						
-						if (myVar == 69) {
-							//alert("Und da ist sie, die 69!");
-							
-							$('#vid').append("<iframe id='vidframe' hidden width='560' height='315' src='https://www.youtube.com/embed/hfgwrdYUQ2A?controls=0&autoplay=1' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");							
-							setTimeout(removeiframe, 20000); // play leave your head on for 20 secs from pressing (needs some time till it loads)
-						}						
-						if (myVar == 90) {
-							alert("Die größte Zahl im Spiel!");
-						}
-					
-						counter++;
-						numberArray.push(myVar);
-						$('#myBtn' + myVar).removeClass('btn btn-danger m-1');
-						$('#myBtn' + myVar).addClass('btn btn-success m-1');
-						$('#myAnz').html(counter);
-						$('#myNumb').html(numberArray.sort(function(a, b){return a - b}).join(" - "));
-					} else {
-						counter--;
-						numberArray = arrayRemove(numberArray, myVar);
-						$('#myBtn' + myVar).removeClass('btn btn-success m-1');
-						$('#myBtn' + myVar).addClass('btn btn-danger m-1');
-						$('#myAnz').html(counter);
-						$('#myNumb').html(numberArray.sort(function(a, b){return a - b}).join(" - "));
-					}
-				}
-				
-				function bingo(myVar) {
-					state = myVar;
-				
-					if (state == 0) {
-						$('#mySearch').html("Gesucht werden zwei volle Reihen auf einem Zettel!");
-						
-						//$('#myBtnBingo0').attr("disabled", true);
-						
-						$('#myBtnBingo0').removeClass();
-						
-						$('#myBtnBingo0').addClass('btn btn-danger m-1');
-					} else if (state == 1) {
-						$('#mySearch').html("Gesucht werden drei volle Reihen auf einem Zettel!");
-						
-						//$('#myBtnBingo0').attr("disabled", true);
-						//$('#myBtnBingo1').attr("disabled", true);
-						
-						$('#myBtnBingo0').removeClass();
-						$('#myBtnBingo1').removeClass();
-						
-						$('#myBtnBingo0').addClass('btn btn-danger m-1');
-						$('#myBtnBingo1').addClass('btn btn-danger m-1');
-					} else {
-						$('#mySearch').html("Ende! Fertig! Aus! Vorbei! ");
-						
-						//$('#myBtnBingo0').attr("disabled", true);
-						//$('#myBtnBingo1').attr("disabled", true);
-						//$('#myBtnBingo2').attr("disabled", true);
-						
-						$('#myBtnBingo0').removeClass();
-						$('#myBtnBingo1').removeClass();
-						$('#myBtnBingo2').removeClass();
-						
-						$('#myBtnBingo0').addClass('btn btn-danger m-1');
-						$('#myBtnBingo1').addClass('btn btn-danger m-1');
-						$('#myBtnBingo2').addClass('btn btn-danger m-1');
-					}
-				}
-				
-				function arrayRemove(arr, value) {
-					return arr.filter(function(ele){
-						return ele != value;
-					});
-				}
-				
-				function removeiframe() {
-					$('#vidframe').remove();
-					//alert("removed");
-				}
-				</script>
+				<hr style="border-color:white;">
 			</div>
 		</div>
+		
+		<footer class="footer">			
+			<!-- Copyright -->
+			<div style="margin-top: 0.5em;" class="text-center pb-3"><small>Bingo Master 1.0 - © 2019 Copyright:
+				<a href="https://github.com/pixma140">pixma140.github.io</a></small>
+			</div>
+		</footer>
+		
+		<script>				
+			var counter = 0;
+			var numberArray = [];
+			var numberArrayUnsort = [];
+			var state = 0;
+			
+			$(document).ready(function(){				
+			
+				// button var 1
+				/*for (var i = 1; i <= 90; i++) {
+					$("#buttonList").append("<input id='myBtn" + i + "' type='button' style='width: 9%; height: 40px; text-align: center; font-weight: bold;' onclick='lol(" + i + ")' class='btn btn-outline-pink m-1' value='" + i + "'/>");
+					//$("#buttonList").append("<input id='myBtn" + i + "' type='button' style='width: 9%; height: 40px; text-align: center; font-weight: bold;' onclick='lol(" + i + ")' class='btn btn-danger m-1' value='" + i + "'/>");
+					
+					// how many buttons per row
+					// if (i % 10 == 0) {
+					//	console.log(i);
+					//	$("#buttonList").append("<br>");
+					//}
+				} */
+				
+				// button var 2
+				for (var i = 0; i < 10; i++) {
+					for (var j = 0; j < 90; j = j + 10) {
+						var btnid = i + 1 + j;
+						$("#buttonList").append("<input id='myBtn" + btnid + "' type='button' style='width: 10%; height: 40px; text-align: center; font-weight: bold;' onclick='lol(" + btnid + ")' class='btn btn-outline-danger m-1' value='" + btnid + "'/>");
+					}
+				}
+				
+				$("#bingoList").append("<input id='myBtnBingo0' type='button' style='width: 32%; height:40px; text-align: center;' onclick='bingo(0)' class='btn btn-outline-light m-1' value='1. Freigetränk'/>");					
+				$("#bingoList").append("<input id='myBtnBingo1' type='button' style='width: 32%; height:40px; text-align: center;' onclick='bingo(1)' class='btn btn-outline-light m-1' value='2. Freigetränk'/>");
+				$("#bingoList").append("<input id='myBtnBingo2' type='button' style='width: 32%; height:40px; text-align: center;' onclick='bingo(2)' class='btn btn-outline-light m-1' value='Hauptpreis'/>");
+			});
+			
+			function lol(myVar) {				
+			
+				if($('#myBtn' + myVar).hasClass("btn btn-outline-danger m-1")) {
+				
+					if (myVar == 69) {
+						$('#vid').append("<iframe id='vidframe' hidden width='560' height='315' src='https://www.youtube.com/embed/hfgwrdYUQ2A?controls=0&autoplay=1' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");							
+						setTimeout(removeiframe, 20000); // play leave your head on for 20 secs from pressing (needs some time till it loads (20secs - time loading))
+					}												
+				
+					counter++;
+					
+					numberArray.push(myVar);
+					numberArrayUnsort.push(myVar);
+					
+					$('#myBtn' + myVar).removeClass('btn btn-outline-danger m-1');
+					$('#myBtn' + myVar).addClass('btn btn-outline-success m-1');
+					
+					$('#myAnz').html(counter);
+					$('#myLast').html(numberArrayUnsort[numberArrayUnsort.length - 1]);
+					$('#myNumb').html(numberArray.sort(function(a, b){return a - b}).join(" - "));
+					$('#myNumbUnsort').html(numberArrayUnsort.join(" - "));
+				} else {
+					counter--;
+					
+					numberArray = arrayRemove(numberArray, myVar);
+					numberArrayUnsort = arrayRemove(numberArrayUnsort, myVar);
+					
+					$('#myBtn' + myVar).removeClass('btn btn-outline-success m-1');
+					$('#myBtn' + myVar).addClass('btn btn-outline-danger m-1');
+					
+					$('#myAnz').html(counter);
+					$('#myLast').html(numberArrayUnsort[numberArrayUnsort.length - 1]);
+					$('#myNumb').html(numberArray.sort(function(a, b){return a - b}).join(" - "));
+					$('#myNumbUnsort').html(numberArrayUnsort.join(" - "));
+				}
+			}
+			
+			function bingo(myVar) {
+				state = myVar;
+			
+				if (state == 0) {
+					$('#mySearch').html("Gesucht werden <b>zwei volle Reihen</b> auf einem Zettel!");
+					
+					//$('#myBtnBingo0').attr("disabled", true);
+					
+					$('#myBtnBingo0').removeClass();
+					
+					$('#myBtnBingo0').addClass('btn btn-success m-1');
+				} else if (state == 1) {
+					$('#mySearch').html("Gesucht werden <b>drei volle Reihen</b> auf einem Zettel!");
+					
+					//$('#myBtnBingo0').attr("disabled", true);
+					//$('#myBtnBingo1').attr("disabled", true);
+					
+					$('#myBtnBingo0').removeClass();
+					$('#myBtnBingo1').removeClass();
+					
+					$('#myBtnBingo0').addClass('btn btn-success m-1');
+					$('#myBtnBingo1').addClass('btn btn-success m-1');
+				} else {
+					$('#mySearch').html("<b>Ende! Fertig! Aus! Vorbei!</b>");
+					
+					//$('#myBtnBingo0').attr("disabled", true);
+					//$('#myBtnBingo1').attr("disabled", true);
+					//$('#myBtnBingo2').attr("disabled", true);
+					
+					$('#myBtnBingo0').removeClass();
+					$('#myBtnBingo1').removeClass();
+					$('#myBtnBingo2').removeClass();
+					
+					$('#myBtnBingo0').addClass('btn btn-success m-1');
+					$('#myBtnBingo1').addClass('btn btn-success m-1');
+					$('#myBtnBingo2').addClass('btn btn-success m-1');
+				}
+			}
+			
+			function arrayRemove(arr, value) {
+				return arr.filter(function(ele){
+					return ele != value;
+				});
+			}
+			
+			function removeiframe() {
+				$('#vidframe').remove();
+				//alert("removed");
+			}
+		</script>
 	</body>
 </html>
