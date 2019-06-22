@@ -64,7 +64,9 @@
             </div>
         </div>
         
-        <marquee scrollamount="15"><strong>+ + + HIER KÖNNTE IHRE WERBUNG STEHEN! + + + LAMPE STINKT + + + Termine: [TODO] + + + WER DAS LIEST IST DOOF + + + hAlLo IhR aLlE + + + Hallo Echooo + + +</strong></marquee>
+        <marquee scrollamount="20"  behavior="alternate" ><strong>+ + + HIER KÖNNTE IHRE WERBUNG STEHEN! + + + LAMPE STINKT + + + WER DAS LIEST IST DOOF + + + Hallo Echooo + + + Hallo Lampeee + + +</strong></marquee>
+		<marquee scrollamount="15" direction="left"><strong>+ + + TERMINE + + + sadfsdaf + + +</strong></marquee>
+		<marquee scrollamount="15" direction="right"><strong>+ + + PERSONAL HEUTE + + + NESSAAAAAAA + + +</strong></marquee>
         
         <script>
 		
@@ -82,7 +84,7 @@
 			// ================================== RANDOMIZATION
 			// ================================================
 			
-			var lfrandom = getRandomInt(3) + 2;
+			/* var lfrandom = getRandomInt(3) + 2;
 			var lsrandom = getRandomInt(3) + 2;
 			
 			var frandom = getRandomInt(20) + 5;
@@ -95,7 +97,7 @@
 			console.log("First length: " + lfrandom);
 			
 			console.log("Second change: " + srandom);
-			console.log("Second length: " + lsrandom);					
+			console.log("Second length: " + lsrandom); */
             
 			// ================================================
 			// ====================== BUILD NUMBER BUTTON ARRAY
@@ -165,6 +167,9 @@
 				// if already klicked
                 } else {
                     counter--;
+					
+					// stop music if number was wrong
+					pauseMusic();
                     
                     numberArray = arrayRemove(numberArray, myVar);
                     numberArrayUnsort = arrayRemove(numberArrayUnsort, myVar);
@@ -178,8 +183,13 @@
                     $('#myNumbUnsort').html(numberArrayUnsort.join(" - "));
                 }
 				
+				// if no number was fetched, no display of last number
+				if (counter == 0) {
+					$('#myLast').html("");
+				}
+				
 				// color change mode (always)
-				if (counter >= frandom && counter <= efrandom) {
+				/* if (counter >= frandom && counter <= efrandom) {
 				
 					$(document.body).css("background-color","purple");
 					$("#buttonList").css("background-color","purple");
@@ -189,15 +199,11 @@
 					$(document.body).css("background-color","#EA0A8E");
 					$("#buttonList").css("background-color","#EA0A8E");
 					
-				} else if (counter == 0) {
-				
-					$('#myLast').html("");
-					
 				} else {
 				
 					$(document.body).css("background-color","black");
 					$("#buttonList").css("background-color","black");
-				}
+				} */
             }
             
 			
@@ -206,7 +212,7 @@
 			// ================================================
 			
 			function playMusic(mySong, myStartTime, myLength) {
-				console.log("play: " + mySong + " from: " + myStartTime + " for: " + myLength + " seconds!");
+				console.log("play: " + mySong + " from: " + myStartTime + " for: " + myLength/1000 + " seconds!");
 			
                 var x = document.getElementById("myAudio");
 				var source = document.getElementById('audioSource');
