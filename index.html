@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>App</title>
+        <title>BingoMaster</title>
         
         <!-- jQuery -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>     
@@ -11,98 +11,76 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.js"></script>                         
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">                    
         
-        <!-- Select2 - https://select2.org/ -->                                 
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.1/css/select2.css" rel="stylesheet"/>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.1/js/select2.js"></script>                    
-        
         <style>
-        # myBtn{    
-            padding-top: 0 !important;
-        }
-		
-		//.btn-danger { background-color: blue; }
-		//.btn-outline-danger { background-color: blue; }
-		//.btn-success { background-color: pink; }
-		//.btn-outline-success { background-color: pink; }
+			#myBtn{    
+				padding-top: 0 !important;
+			}
+			
+			//.btn-danger { border-color: black; }			
+			//.btn-success { border-color: black; }
 
-		.btn-danger {
-			display: table-cell;
-			vertical-align: middle;
-			padding-top: 0px;
-			padding-bottom: 0px;
-			height: 35px;
-			line-height: 35px;
-			//padding: 0;
-			//margin: 0;
-		}		
+			//.btn-danger { background-color: blue; border-color: black; }			
+			//.btn-success { background-color: pink; border-color: black; }
+
+			// button override (failed due to bootstrap shit...
+			.myBtn {
+				display: table-cell;
+				vertical-align: middle;
+				padding-top: 0px;
+				padding-bottom: 0px;
+				height: 35px;
+				line-height: 35px;
+				//padding: 0;
+				//margin: 0;
+			}		
         </style>		
         <meta charset="utf-8">
     </head>
     
-    <body style="background-color: black; color: white; background-repeat: no-repeat;">    <!-- background-image: url('flames.jpg'); -->
+    <body style="background-color: black; color: white; background-repeat: no-repeat;"> <!-- background-image: url('flames.jpg'); -->
     
         <div style="width:100%; margin-top: 1em;">                    
             <div style="width: 75%; margin: 0 auto;">
 			
-                <audio id="myAudioJoe" hidden controls>
-					<source src="musik/joe.mp3" type="audio/mpeg">                        
-                </audio>
+				<!-- AUDIO ELEMENT FOR PLAYBACK -->
+				<audio id="myAudio" hidden controls>
+					<source id="audioSource" src="" type="audio/mpeg">                        
+                </audio>			
 				
-				<audio id="myAudioSex" hidden controls>
-					<source src="musik/sexbomb.mp3" type="audio/mpeg">                        
-                </audio>
-				
-				<audio id="myAudioZwerge" hidden controls>
-					<source src="musik/zwerge.mp3" type="audio/mpeg">                        
-                </audio>
-				
-				<audio id="myAudioSechs" hidden controls>
-					<source src="musik/sechs.mp3" type="audio/mpeg">                        
-                </audio>
-				
-				<audio id="myAudioDepp" hidden controls>
-					<source src="musik/depp.mp3" type="audio/mpeg">                        
-                </audio>
-				
-				<audio id="myAudioPipi" hidden controls>
-					<source src="musik/pipi.mp3" type="audio/mpeg">                        
-                </audio>
-				
-                <!-- <h1>App - <small>Gezogene Zahlen: <span id="myAnz">0</span> - <span id="myNumb"></span></small></h1> -->
+				<!-- HEADLINE -->
                 <h2 style="background-color: black; text-align: center; opacity:1; border-radius: 25px; padding: 5px;"><strong>Bingo Master - </strong>Anzahl Zahlen: <span id="myAnz" style="font-weight: bold;">0</span> - Letzte Gezogene: <span id="myLast" style="font-weight: bold;"></span></h2> <!--  - <span id="mySearch">Gesucht wird <b>eine volle Reihe!</b></span> -->
-                <!-- <h2><small>Bereits gezogene Zahlen:   <span id="myNumb"></span></small></h2> -->
-                <h2 style="background-color: black; opacity:1;border-radius: 5px; padding: 5px;"><small>Gezogene Zahlen: <span id="myNumbUnsort"></span></small></h2> <!-- DEBUG ARRAY -->
+				
+				<!-- PAST NUMBERS ARRAY -->
+                <!-- <h2 style="background-color: black; opacity:1;border-radius: 5px; padding: 5px;"><small>Gezogene Zahlen: <span id="myNumb"></span></small></h2> --> <!-- SORTED ARRAY -->
+				<h2 style="background-color: black; opacity:1;border-radius: 5px; padding: 5px;"><small>Gezogene Zahlen: <strong><span id="myNumbUnsort"></span></strong></small></h2> <!-- UNSORTED ARRAY -->
             	
-                <hr>
+                <hr style="border-color:white;">
                 
                 <div id="buttonList" style="text-align: center; background-color: black;"> <!-- margin: 0 auto; background-color: black; opacity:0.75; -->
-                    <!-- LOOOL -->
+                    <!-- EMPTY DIV TO BE FILLED ON DOCUMENT READY WITH  BUTTON ARRAY -->
                 </div>
                 
-                <hr>
-                
-                <div id="bingoList" style="display: flex; align-items: center; justify-content: center;"> <!--  -->
-                    <!-- LOOOL -->
-                </div>
-                
-                <div id="vid">
-                    <!-- LOOOL -->
-                </div>
-                
-                <!-- <hr style="border-color:white;"> -->
+                <hr style="border-color:white;">
             </div>
         </div>
         
-        <footer class="footer">            
-            <!-- Copyright -->
-            <div style="margin-top: 0.5em;" class="text-center pb-3"><marquee scrollamount="15">+++   HIER KÖNNTE IHRE WERBUNG STEHEN!   +++</marquee></div>
-        </footer>
+        <marquee scrollamount="15"><strong>+ + + HIER KÖNNTE IHRE WERBUNG STEHEN! + + + LAMPE STINKT + + + Termine: [TODO] + + + WER DAS LIEST IST DOOF + + + hAlLo IhR aLlE + + + Hallo Echooo + + +</strong></marquee>
         
-        <script>                
+        <script>
+		
+			// ================================================
+			// ======================= DECLARATION OF VARIABLES
+			// ================================================
+			
             var counter = 0;
             var numberArray = [];
             var numberArrayUnsort = [];
             var state = 0;
+			
+			
+			// ================================================
+			// ================================== RANDOMIZATION
+			// ================================================
 			
 			var lfrandom = getRandomInt(3) + 2;
 			var lsrandom = getRandomInt(3) + 2;
@@ -113,53 +91,64 @@
 			var srandom = getRandomInt(10) + frandom + 5;
 			var esrandom = srandom + lsrandom;
 			
-			//alert(frandom + " - " + srandom + " - " + lfrandom);
+			console.log("First change: " + frandom);
+			console.log("First length: " + lfrandom);
+			
+			console.log("Second change: " + srandom);
+			console.log("Second length: " + lsrandom);					
             
+			// ================================================
+			// ====================== BUILD NUMBER BUTTON ARRAY
+			// ================================================
+			
             $(document).ready(function(){                
             
                 // button var 1
-                for (var i = 1; i <= 90; i++) {
-                    //$("#buttonList").append("<input id='myBtn" + i + "' type='button' style='width: 9%; height: 40px; text-align: center; font-weight: bold;' onclick='lol(" + i + ")' class='btn btn-outline-pink m-1' value='" + i + "'/>");
-                    //$("#buttonList").append("<input id='myBtn" + i + "' type='button' style='width: 9%; height: 40px; text-align: center; font-weight: bold;' onclick='lol(" + i + ")' class='btn btn-danger m-1' value='" + i + "'/>");
-                    $("#buttonList").append("<input id='myBtn" + i + "' type='button' style='width: 4%; padding:0px; height: 35px; text-align: center; display: inline-block; font-weight: bold; font-size: 26px;' onclick='lol(" + i + ")' class='btn btn-danger m-1' value='" + i + "'/>");
+                for (var i = 1; i <= 90; i++) {                    
+                    $("#buttonList").append("<input id='myBtn" + i + "' class='btn btn-danger m-1' style='width: 4%; padding:0px; height: 35px; text-align: center; display: inline-block; font-weight: bold; font-size: 26px;' onclick='lol(" + i + ")' value='" + i + "' type='button'/>");
                     
                      //how many buttons per row
                      if (i % 20 == 0) {
-                        //console.log(i);
                         $("#buttonList").append("<br>");
                     }
-                }                
+                }
             });
             
+			
+			// ================================================
+			// ================================ BUTTON HANDLING
+			// ================================================
+			
             function lol(myVar) {
 			
+				// if unklicked
                 if($('#myBtn' + myVar).hasClass("btn btn-danger m-1")) {
-                
-					//TODO - switch case
-                    if (myVar == 69) {
-                        playJoe();                       
-                    } 
-
-					if (myVar == 6) {
-                        playSex();
-                    } 
-
-					if (myVar == 7) {
-                        playZwerge();
-                    }
-
-					if (myVar == 66) {
-                        playSechs();
-                    }    
-
-					if (myVar == 63) {
-                        playDepp();
-                    } 
-
-					if (myVar == 9) {
-                        playPipi();
-                    }      					
-                
+					
+					// select song if matching number
+					switch(myVar) {
+						case 6:
+							playMusic("sexbomb", 46.4, 5800);							
+							break;
+						case 7:
+							playMusic("zwerge", 19.3, 5000);
+							break;
+						case 9:
+							playMusic("pipi", 11.4, 5000);
+							break;
+						case 63:
+							playMusic("depp", 93.5, 6000);
+							break;
+						case 66:
+							playMusic("sechs", 52.2, 7600);
+							break;
+						case 69:
+							playMusic("joe", 0, 10500);
+							break;
+						default:
+							// NOTHING
+							break;
+					}
+					
                     counter++;
                     
                     numberArray.push(myVar);
@@ -172,6 +161,8 @@
                     $('#myLast').html(numberArrayUnsort[numberArrayUnsort.length - 1]);
                     $('#myNumb').html(numberArray.sort(function(a, b){return a - b}).join(" - "));
                     $('#myNumbUnsort').html(numberArrayUnsort.join(" - "));
+					
+				// if already klicked
                 } else {
                     counter--;
                     
@@ -187,172 +178,69 @@
                     $('#myNumbUnsort').html(numberArrayUnsort.join(" - "));
                 }
 				
+				// color change mode (always)
 				if (counter >= frandom && counter <= efrandom) {
+				
 					$(document.body).css("background-color","purple");
 					$("#buttonList").css("background-color","purple");
+					
 				} else if (counter >= srandom && counter <= esrandom){
+				
 					$(document.body).css("background-color","#EA0A8E");
 					$("#buttonList").css("background-color","#EA0A8E");
+					
+				} else if (counter == 0) {
+				
+					$('#myLast').html("");
+					
 				} else {
+				
 					$(document.body).css("background-color","black");
 					$("#buttonList").css("background-color","black");
 				}
             }
             
-            function bingo(myVar) {
-                state = myVar;
-            
-                if (state == 0) {
-                    //$('#mySearch').html("Gesucht werden <b>zwei volle Reihen</b> auf einem Zettel!");
-                    
-                    //$('#myBtnBingo0').attr("disabled", true);
-                    
-                    $('#myBtnBingo0').removeClass();
-                    
-                    $('#myBtnBingo0').addClass('btn btn-success m-1');
-                } else if (state == 1) {
-                    //$('#mySearch').html("Gesucht werden <b>drei volle Reihen</b> auf einem Zettel!");
-                    
-                    //$('#myBtnBingo0').attr("disabled", true);
-                    //$('#myBtnBingo1').attr("disabled", true);
-                    
-                    $('#myBtnBingo0').removeClass();
-                    $('#myBtnBingo1').removeClass();
-                    
-                    $('#myBtnBingo0').addClass('btn btn-success m-1');
-                    $('#myBtnBingo1').addClass('btn btn-success m-1');
-                } else {
-                    //$('#mySearch').html("<b>Ende! Fertig! Aus! Vorbei!</b>");
-                    
-                    //$('#myBtnBingo0').attr("disabled", true);
-                    //$('#myBtnBingo1').attr("disabled", true);
-                    //$('#myBtnBingo2').attr("disabled", true);
-                    
-                    $('#myBtnBingo0').removeClass();
-                    $('#myBtnBingo1').removeClass();
-                    $('#myBtnBingo2').removeClass();
-                    
-                    $('#myBtnBingo0').addClass('btn btn-success m-1');
-                    $('#myBtnBingo1').addClass('btn btn-success m-1');
-                    $('#myBtnBingo2').addClass('btn btn-success m-1');
-                }
+			
+            // ================================================
+			// ================================= MUSIC HANDLING
+			// ================================================
+			
+			function playMusic(mySong, myStartTime, myLength) {
+				console.log("play: " + mySong + " from: " + myStartTime + " for: " + myLength + " seconds!");
+			
+                var x = document.getElementById("myAudio");
+				var source = document.getElementById('audioSource');
+				var newSource = "music\/" + mySong + ".mp3";				
+				source.src = newSource;
+				
+				x.load();
+				x.currentTime = myStartTime;
+                x.play();
+				
+				// play mySong for myLength seconds from  myStartTime at point of pressing given number
+                setTimeout(pauseMusic, myLength);
             }
-            
-            function arrayRemove(arr, value) {
+			
+            function pauseMusic() {                
+                var x = document.getElementById("myAudio");
+                x.pause();
+                //alert("Paused audio!");
+            }
+			
+			
+			// ================================================
+			// =============================== HELPER FUNCTIONS
+			// ================================================
+			
+			function arrayRemove(arr, value) {
                 return arr.filter(function(ele){
                     return ele != value;
                 });
             }
 			
-            function playJoe() {
-                //alert("Hello Joe");
-                var x = document.getElementById("myAudioJoe");
-                x.play();
-                setTimeout(pauseJoe, 10500); // play leave your head on for 10 secs from pressing (needs some time till it loads (20secs - time loading))                
-            }
-            function pauseJoe() {                
-                var x = document.getElementById("myAudioJoe");
-                x.pause();
-                //alert("Pause after 10 secs");
-            }
-			
-			function playSex() {
-                //alert("Hello Sex");
-                var x = document.getElementById("myAudioSex");
-				x.currentTime = 46.4;
-                x.play();
-                setTimeout(pauseSex, 5800); // play leave your head on for 10 secs from pressing (needs some time till it loads (20secs - time loading))                
-            }
-            function pauseSex() {                
-                var x = document.getElementById("myAudioSex");
-                x.pause();
-                //alert("Pause after 10 secs");
-            }
-			
-			function playZwerge() {
-                //alert("Hello Sex");
-                var x = document.getElementById("myAudioZwerge");
-				x.currentTime = 19.3;
-                x.play();
-                setTimeout(pauseZwerge, 5000); // play leave your head on for 10 secs from pressing (needs some time till it loads (20secs - time loading))                
-            }
-            function pauseZwerge() {                
-                var x = document.getElementById("myAudioZwerge");
-                x.pause();
-                //alert("Pause after 10 secs");
-            }
-			
-			function playPipi() {
-                //alert("Hello Sex");
-                var x = document.getElementById("myAudioPipi");
-				x.currentTime = 11.4;
-                x.play();
-                setTimeout(pausePipi, 5000); // play leave your head on for 10 secs from pressing (needs some time till it loads (20secs - time loading))                
-            }
-            function pausePipi() {                
-                var x = document.getElementById("myAudioPipi");
-                x.pause();
-                //alert("Pause after 10 secs");
-            }
-			
-			function playDepp() {
-                //alert("Hello Sex");
-                var x = document.getElementById("myAudioDepp");
-				x.currentTime = 93.5;
-                x.play();
-                setTimeout(pauseDepp, 6000); // play leave your head on for 10 secs from pressing (needs some time till it loads (20secs - time loading))                
-            }
-            function pauseDepp() {                
-                var x = document.getElementById("myAudioDepp");
-                x.pause();
-                //alert("Pause after 10 secs");
-            }
-            
 			function getRandomInt(max) {
 				return Math.floor(Math.random() * Math.floor(max));
 			}
-			
-			function playSechs() {
-                //alert("Hello Sex");
-                var x = document.getElementById("myAudioSechs");
-				x.currentTime = 52.2;
-                x.play();
-                setTimeout(pauseSechs, 7600); // play leave your head on for 10 secs from pressing (needs some time till it loads (20secs - time loading))                
-            }
-            function pauseSechs() {                
-                var x = document.getElementById("myAudioSechs");
-                x.pause();
-                //alert("Pause after 10 secs");
-            }
-            
-			function getRandomInt(max) {
-				return Math.floor(Math.random() * Math.floor(max));
-			}
-			
-			// ============================
-			// ======== DEPRECATED ========
-			// ============================
-			
-			// start audio old from youtube
-			//$('#vid').append("<iframe id='vidframe' hidden width='560' height='315' src='https://www.youtube.com/embed/hfgwrdYUQ2A?controls=0&autoplay=1' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");                            
-			//setTimeout(removeiframe, 20000); // play leave your head on for 20 secs from pressing (needs some time till it loads (20secs - time loading))
-			//function removeiframe() {
-            //    $('#vidframe').remove();
-            //}
-			
-			// button var 2
-			/*for (var i = 0; i < 10; i++) {
-				for (var j = 0; j < 90; j = j + 10) {
-					var btnid = i + 1 + j;
-					$("#buttonList").append("<input id='myBtn" + i + "' type='button' style='width: 10%; padding:0px; height: 30px; text-align: center; font-weight: bold; font-size: 22px;' onclick='lol(" + i + ")' class='btn btn-danger m-1' value='" + i + "'/>");
-				}
-			}*/			
-			
-			// old buttons
-			//$("#bingoList").append("<hr style='border-color:white;'>");    
-			//$("#bingoList").append("<input id='myBtnBingo0' type='button' style='width: 32%; height:40px; text-align: center; font-weight: bold; font-size: 24px;' onclick='bingo(0)' class='btn btn-outline-light m-1' value='1. Freigetränk'/>");                    
-			//$("#bingoList").append("<input id='myBtnBingo1' type='button' style='width: 32%; height:40px; text-align: center; font-weight: bold; font-size: 24px;' onclick='bingo(1)' class='btn btn-outline-light m-1' value='2. Freigetränk'/>");
-			//$("#bingoList").append("<input id='myBtnBingo2' type='button' style='width: 32%; height:40px; text-align: center; font-weight: bold; font-size: 24px;' onclick='bingo(2)' class='btn btn-outline-light m-1' value='Hauptpreis'/>");
         </script>
     </body>
 </html>
