@@ -32,7 +32,8 @@
 				line-height: 35px;
 				//padding: 0;
 				//margin: 0;
-			}		
+			}
+			
         </style>		
         <meta charset="utf-8">
     </head>
@@ -45,7 +46,14 @@
 				<!-- AUDIO ELEMENT FOR PLAYBACK -->
 				<audio id="myAudio" hidden controls>
 					<source id="audioSource" src="" type="audio/mpeg">                        
-                </audio>			
+                </audio>
+
+				<!-- VIDEO ELEMENT FOR PLAYBACK -->				
+				<dialog id="dialog" width="100%" style="padding: 0px; margin-top: 2em">
+					<video width="1000px" id="myVideo">
+						<source id="videoSource" src="" type="video/mp4">
+					</video>
+				</dialog>
 				
 				<!-- HEADLINE -->
                 <h2 style="background-color: black; text-align: center; opacity:1; border-radius: 25px; padding: 5px;"><strong>Bingo Master - </strong>Anzahl Zahlen: <span id="myAnz" style="font-weight: bold;">0</span> - Letzte Gezogene: <span id="myLast" style="font-weight: bold;"></span></h2> <!--  - <span id="mySearch">Gesucht wird <b>eine volle Reihe!</b></span> -->
@@ -64,9 +72,8 @@
             </div>
         </div>
         
-        <marquee scrollamount="20"  behavior="alternate" ><strong>+ + + HIER KÖNNTE IHRE WERBUNG STEHEN! + + + LAMPE STINKT + + + WER DAS LIEST IST DOOF + + + Hallo Echooo + + + Hallo Lampeee + + +</strong></marquee>
-		<marquee scrollamount="15" direction="left"><strong>+ + + TERMINE + + + sadfsdaf + + +</strong></marquee>
-		<marquee scrollamount="15" direction="right"><strong>+ + + PERSONAL HEUTE + + + NESSAAAAAAA + + +</strong></marquee>
+        <marquee id="marquee" scrollamount="15" direction="left"><strong>+ + + HIER KÖNNTE IHRE WERBUNG STEHEN! + + + LAMPE STINKT (HEUTE NICHT WEIL FRISCH GEDUSCHT) + + + WER DAS LIEST IST DOOF + + + HALLO ECHOOO + + + HALLO LAMPEEE + + +</strong></marquee>
+		<!-- <marquee id=marquee" scrollamount="15" behavior="alternate"><strong>+ + + TERMINE + + + sadfsdaf + + +</strong></marquee> -->
         
         <script>
 		
@@ -79,6 +86,25 @@
             var numberArrayUnsort = [];
             var state = 0;
 			
+			// ================================================
+			// ============================== SEKÜNDLICHER POLL
+			// ================================================
+
+			setInterval(doReq, 5000);
+
+			function doReq() {
+				$.ajax({
+						url: 'https://baconipsum.com/api/?type=meat-and-filler&paras=&format=text',
+						dataType: 'text',
+						type: 'GET',
+						success: function(data){
+								console.log(data);
+						},
+						error: function(jqXhr, textStatus, errorThrown){
+								console.log(errorThrown);
+						}
+				});
+			}
 			
 			// ================================================
 			// ================================== RANDOMIZATION
@@ -107,7 +133,7 @@
             
                 // button var 1
                 for (var i = 1; i <= 90; i++) {                    
-                    $("#buttonList").append("<input id='myBtn" + i + "' class='btn btn-danger m-1' style='width: 4%; padding:0px; height: 35px; text-align: center; display: inline-block; font-weight: bold; font-size: 26px;' onclick='lol(" + i + ")' value='" + i + "' type='button'/>");
+                    $("#buttonList").append("<input id='myBtn" + i + "' class='btn btn-danger m-1' style='width: 4%; padding: 0px; height: 35px; text-align: center; display: inline-block; font-weight: bold; font-size: 26px;' onclick='lol(" + i + ")' value='" + i + "' type='button'/>");
                     
                      //how many buttons per row
                      if (i % 20 == 0) {
@@ -123,7 +149,7 @@
 			
             function lol(myVar) {
 			
-				// if unklicked
+				// if not clicked
                 if($('#myBtn' + myVar).hasClass("btn btn-danger m-1")) {
 					
 					// select song if matching number
@@ -151,6 +177,16 @@
 							break;
 					}
 					
+					// select video if matching number
+					switch(myVar) {
+						case 42:
+							playVideo("deepthought", 0.15, 1330);							
+							break;
+						default:
+							// NOTHING
+							break;
+					}
+					
                     counter++;
                     
                     numberArray.push(myVar);
@@ -164,7 +200,7 @@
                     $('#myNumb').html(numberArray.sort(function(a, b){return a - b}).join(" - "));
                     $('#myNumbUnsort').html(numberArrayUnsort.join(" - "));
 					
-				// if already klicked
+				// if already clicked
                 } else {
                     counter--;
 					
@@ -230,7 +266,38 @@
             function pauseMusic() {                
                 var x = document.getElementById("myAudio");
                 x.pause();
-                //alert("Paused audio!");
+            }
+			
+			// ================================================
+			// ================================= VIDEO HANDLING
+			// ================================================
+			
+			function playVideo(myVideo, myStartTime, myLength) {
+				console.log("play: " + myVideo + " from: " + myStartTime + " for: " + myLength/1000 + " seconds!");
+			
+                var x = document.getElementById("myVideo");
+				var source = document.getElementById('videoSource');
+				var newSource = "video\/" + myVideo + ".mp4";				
+				source.src = newSource;
+			
+				document.getElementById('dialog').showModal();			
+				document.getElementById("marquee").style.display = "none";
+			
+				x.load();
+				x.currentTime = myStartTime;
+				x.volume = 1.0;
+                x.play();
+				
+				// play mySong for myLength seconds from  myStartTime at point of pressing given number
+                setTimeout(pauseVideo, myLength);
+            }
+			
+            function pauseVideo() {                
+                var x = document.getElementById("myVideo");
+                x.pause();
+				
+				document.getElementById("dialog").close();
+				document.getElementById("marquee").style.display = "block";
             }
 			
 			
