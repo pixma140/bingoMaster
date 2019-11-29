@@ -1,16 +1,16 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
     <head>
         <title>BingoMaster</title>
         
         <!-- jQuery -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>     
+        <script src="libs/jquery.js"></script>     
         
         <!-- Bootstrap -->        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.js"></script>             
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.js"></script>                         
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">                    
-        
+        <script src="libs/popper.js"></script>             
+        <script src="libs/bootstrap.js"></script>                         
+        <link rel="stylesheet" href="libs/bootstrap.css"> 
+
         <style>
 			#myBtn{    
 				padding-top: 0 !important;
@@ -90,7 +90,7 @@
 			// ============================== SEKÜNDLICHER POLL
 			// ================================================
 
-			setInterval(doReq, 5000);
+			//setInterval(doReq, 5000);
 
 			function doReq() {
 				$.ajax({
