@@ -50,7 +50,7 @@
 
 				<!-- VIDEO ELEMENT FOR PLAYBACK -->				
 				<dialog id="dialog" width="100%" style="padding: 0px; margin-top: 1em">
-					<video width="1000px" id="myVideo">
+					<video height="400px" id="myVideo">
 						<source id="videoSource" src="" type="video/mp4">
 					</video>
 				</dialog>
@@ -230,7 +230,7 @@
 							playMusic("stechvieh", 0, 2256, 1);
 							break;
 						case 32:
-							playMusic("cantina", 0, 3654, 0.9);
+							//playMusic("cantina", 0, 3654, 0.9);
 							break;
 						case 42:
 							playMusic("ft", 0, 1160, 1);
@@ -241,7 +241,7 @@
 							playMusic("whooo", 0, 1698, 0.7);
 							break;
 						case 47:
-							playMusic("bongo", 0, 5005, 0.8);
+							//playMusic("bongo", 0, 5005, 0.8);
 							break;
 						case 49:
 							playMusic("heiho", 0, 4571, 1.2);
@@ -265,7 +265,7 @@
 							playMusic("joe", 0, 10867, 0.4);
 							break;
 						case 72:
-							playMusic("egal", 0, 4151, 0.4);
+							//playMusic("egal", 0, 4151, 0.4);
 							break;
 						case 77:
 							playMusic("siebenstein", 0, 1778, 1.2);
@@ -289,8 +289,17 @@
 					
 					// select video if matching number
 					switch(myVar) {
+						case 32:
+							playVideo("cantina", 0, 6754, 0.9);
+							break;
 						case 42:
-							//playVideo("deepthought", 0.15, 1330, 1);
+							playVideo("deepthought", 0.15, 1330, 1);
+							break;
+						case 47:
+							playVideo("bongo", 0, 5500, 0.8);
+							break;
+						case 72:
+							playVideo("egal", 0, 4500, 0.4);
 							break;
 						default:
 							// NOTHING
