@@ -60,7 +60,7 @@
 				
 				<!-- PAST NUMBERS ARRAY -->
                 <!-- <h2 style="background-color: black; opacity:1;border-radius: 5px; padding: 5px;"><small>Gezogene Zahlen: <span id="myNumb"></span></small></h2> --> <!-- SORTED ARRAY -->
-				<h2 style="background-color: black; opacity:1;border-radius: 5px; padding: 5px;"><small>Gezogene Zahlen: <strong><span id="myNumbUnsort"></span></strong></small></h2> <!-- UNSORTED ARRAY -->
+				<h2 style="background-color: black; opacity:1;border-radius: 5px; padding: 5px;"><small>Gezogene Zahlen: <strong><span id="myNumbUnsort" style="font-size: 32px"></span></strong></small></h2> <!-- UNSORTED ARRAY -->
             	
                 <hr style="border-color:white;">
                 
@@ -72,7 +72,7 @@
             </div>
         </div>
         
-        <marquee id="marquee" scrollamount="15" direction="left"><strong>+ + + HIER KÖNNTE IHRE WERBUNG STEHEN! + + + LAMPE STINKT (HEUTE NICHT WEIL FRISCH GEDUSCHT) + + + WER DAS LIEST IST DOOF + + + HALLO ECHOOO + + + HALLO LAMPEEE + + +</strong></marquee>
+        <marquee id="marquee" scrollamount="7" direction="left"><strong id="innermarquee" style="font-size: 20px; cursor: none;"></strong></marquee>
 		<!-- <marquee id=marquee" scrollamount="15" behavior="alternate"><strong>+ + + TERMINE + + + sadfsdaf + + +</strong></marquee> -->
         
         <script>
@@ -85,24 +85,56 @@
             var numberArray = [];
             var numberArrayUnsort = [];
             var state = 0;
+			var textarray = [];
+			document.body.style.cursor = "default"; // cell, grab, grabbing, wait, pointer
 			
 			// ================================================
-			// ============================== SEKÜNDLICHER POLL
+			// ================================== POLLING STUFF
 			// ================================================
-
+			
+			setMarqueeText();
+			setInterval(setMarqueeText, 22500); //usage: 22500 debug: 1000
+			function setMarqueeText() {
+				if (textarray.length < 1) {
+					textarray = [
+						"HIER KÖNNTE IHRE WERBUNG STEHEN!",
+						"WER DAS LIEST IST DOOF",
+						"HALLO ECHOOO + + + HALLO LAMPEEE",
+						"MARIO HAT GEPUPST",
+						"WIE HEIßT DIE MUTTER VON NICKI LAUDA? + + + MAMA LAUDA! MAMA LAUDAAA!",
+						"LISA IST AUCH DA",
+						"HIER BLÖDSIN EINFÜGEN",
+						"IST DAS KUNST ODER KANN DAS WEG?",
+						"MARIO BRAUCHT TALENT",
+						"<img src='pics\/meck.png' height='100px'>",
+						"<img src='pics\/farny.png' height='100px'>",
+						"<img src='pics\/flasch.png' height='100px'>",
+						"<img src='pics\/emplong.png' height='100px'>",
+						"<img src='pics\/uni.png' height='100px'>",
+						"<img src='pics\/weizi.png' height='100px'>",
+						"HIER KÖNNTE IHRE WERBUNG STEHEN"
+					]; // "<img src='pics\/emp.png' height='100px'>",
+				}
+				
+				var x = document.getElementById("innermarquee");
+				var myrand = getRandomInt(textarray.length);
+				x.innerHTML = "+ + + " + textarray[myrand] + " + + +";
+				textarray.splice(myrand, 1);
+			}
+			
+			
 			//setInterval(doReq, 5000);
-
 			function doReq() {
 				$.ajax({
-						url: 'https://baconipsum.com/api/?type=meat-and-filler&paras=&format=text',
-						dataType: 'text',
-						type: 'GET',
-						success: function(data){
-								console.log(data);
-						},
-						error: function(jqXhr, textStatus, errorThrown){
-								console.log(errorThrown);
-						}
+					url: 'https://baconipsum.com/api/?type=meat-and-filler&paras=&format=text',
+					dataType: 'text',
+					type: 'GET',
+					success: function(data){
+						console.log(data);
+					},
+					error: function(jqXhr, textStatus, errorThrown){
+						console.log(errorThrown);
+					}
 				});
 			}
 			
@@ -132,8 +164,8 @@
             $(document).ready(function(){                
             
                 // button var 1
-                for (var i = 1; i <= 90; i++) {                    
-                    $("#buttonList").append("<input id='myBtn" + i + "' class='btn btn-danger m-1' style='width: 4%; padding: 0px; height: 35px; text-align: center; display: inline-block; font-weight: bold; font-size: 26px;' onclick='lol(" + i + ")' value='" + i + "' type='button'/>");
+                for (var i = 1; i <= 90; i++) { 
+                    $("#buttonList").append("<input id='myBtn" + i + "' class='btn btn-danger m-1' style='width: 4%; cursor: pointer; padding: 0px; height: 35px; text-align: center; display: inline-block; font-weight: bold; font-size: 26px;' onclick='lol(" + i + ")' value='" + i + "' type='button'/>");
                     
                      //how many buttons per row
                      if (i % 20 == 0) {
@@ -152,38 +184,114 @@
 				// if not clicked
                 if($('#myBtn' + myVar).hasClass("btn btn-danger m-1")) {
 					
+					//playMusic("stechvieh", 0, 2256, 1);
+					//playMusic("fuck", 0, 6054, 0.9);
+					
 					// select song if matching number
 					switch(myVar) {
+						case 3:
+							if (Math.random() >= 0.5) {
+								playMusic("drei" , 0, 1620, 1);
+							} else {
+								playMusic("3" , 0, 888, 1);
+							}
+							break;
+						case 5:
+							playMusic("mambo" , 0, 8072, 1);
+							break;
 						case 6:
-							playMusic("sexbomb", 46.4, 5800);							
+							playMusic("sexbomb", 0, 5878, 1);							
 							break;
 						case 7:
-							playMusic("zwerge", 19.3, 5000);
+							playMusic("zwerge", 0, 5068, 0.8);
+							break;
+						case 8:
+							playMusic("lacht", 0, 8963, 0.8);
 							break;
 						case 9:
-							playMusic("pipi", 11.4, 5000);
+							playMusic("pipilang", 0, 9874, 0.9);
+							//playMusic("pipikurz", 0, 5538, 0.9);
+							break;
+						case 12:
+							playMusic("mg", 0, 8150, 0.6);
+							break;
+						case 17:
+							playMusic("uj", 0, 4075, 0.9);
+							break;
+						case 20:
+							playMusic("bird", 0, 6296, 0.7);
+							break;
+						case 25:
+							playMusic("25", 0, 8359, 0.8);
+							break;
+						case 28:
+							//playMusic("neindochoh", 0, 2684, 0.8);
+							break;
+						case 30:
+							playMusic("stechvieh", 0, 2256, 1);
+							break;
+						case 32:
+							playMusic("cantina", 0, 3654, 0.9);
+							break;
+						case 42:
+							playMusic("ft", 0, 1160, 1);
+							//playMusic("grundkurz", 0, 4049, 1);
+							//playMusic("grundlang", 0, 9561, 2.0);
 							break;
 						case 43:
-							playMusic("whooo", 0.1, 2000);
+							playMusic("whooo", 0, 1698, 0.7);
+							break;
+						case 47:
+							playMusic("bongo", 0, 5005, 0.8);
+							break;
+						case 49:
+							playMusic("heiho", 0, 4571, 1.2);
+							break;
+						case 55:
+							playMusic("jodel", 0, 6381, 1);
+							break;
+						case 51:
+							playMusic("jaichweiß", 0, 866, 1);
+							break;
+						case 60:
+							playMusic("60", 0, 4841, 0.6);
 							break;
 						case 63:
-							playMusic("depp", 93.5, 6000);
+							playMusic("depp", 0, 7680, 0.3);
 							break;
 						case 66:
-							playMusic("sechs", 52.2, 7600);
+							playMusic("sechs", 0, 7419, 1);
 							break;
 						case 69:
-							playMusic("joe", 0, 10500);
+							playMusic("joe", 0, 10867, 0.4);
+							break;
+						case 72:
+							playMusic("egal", 0, 4151, 0.4);
+							break;
+						case 77:
+							playMusic("siebenstein", 0, 1778, 1.2);
+							break;
+						case 78:
+							playMusic("ficken", 0, 7988, 0.4);
+							break;
+						case 80:
+							playMusic("chess", 0, 2273, 1);
+							break;
+						case 83:
+							playMusic("pimml", 0, 575, 0.8);
+							break;
+						case 88:
+							playMusic("icq", 0, 523, 1);
 							break;
 						default:
-							// NOTHING
+							//playMusic("pingpong", 0, 549, 2.0);
 							break;
 					}
 					
 					// select video if matching number
 					switch(myVar) {
 						case 42:
-							//playVideo("deepthought", 0.15, 1330);							
+							//playVideo("deepthought", 0.15, 1330, 1);
 							break;
 						default:
 							// NOTHING
@@ -250,21 +358,22 @@
 			// ================================= MUSIC HANDLING
 			// ================================================
 			
-			function playMusic(mySong, myStartTime, myLength) {
+			function playMusic(mySong, myStartTime, myLength, myVol) {
 				console.log("play: " + mySong + " from: " + myStartTime + " for: " + myLength/1000 + " seconds!");
-			
-                var x = document.getElementById("myAudio");
+
+				var x = document.getElementById("myAudio");
 				var source = document.getElementById('audioSource');
-				var newSource = "music\/" + mySong + ".mp3";				
+				var newSource = "music\/" + mySong + ".mp3";
 				source.src = newSource;
 				
 				x.load();
+				x.volume = myVol * 0.5;
 				x.currentTime = myStartTime;
-                x.play();
+				x.play();
 				
 				// play mySong for myLength seconds from  myStartTime at point of pressing given number
-                setTimeout(pauseMusic, myLength);
-            }
+				setTimeout(pauseMusic, myLength);
+			}
 			
             function pauseMusic() {                
                 var x = document.getElementById("myAudio");
@@ -275,25 +384,25 @@
 			// ================================= VIDEO HANDLING
 			// ================================================
 			
-			function playVideo(myVideo, myStartTime, myLength) {
+			function playVideo(myVideo, myStartTime, myLength, myVol) {
 				console.log("play: " + myVideo + " from: " + myStartTime + " for: " + myLength/1000 + " seconds!");
-			
-                var x = document.getElementById("myVideo");
+
+				var x = document.getElementById("myVideo");
 				var source = document.getElementById('videoSource');
 				var newSource = "video\/" + myVideo + ".mp4";				
 				source.src = newSource;
-			
+
 				document.getElementById('dialog').showModal();			
 				document.getElementById("marquee").style.display = "none";
-			
+
 				x.load();
+				x.volume = myVol * 0.5;
 				x.currentTime = myStartTime;
-				x.volume = 1.0;
-                x.play();
+				x.play();
 				
 				// play mySong for myLength seconds from  myStartTime at point of pressing given number
-                setTimeout(pauseVideo, myLength);
-            }
+				setTimeout(pauseVideo, myLength);
+			}
 			
             function pauseVideo() {                
                 var x = document.getElementById("myVideo");
