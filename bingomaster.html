@@ -102,13 +102,17 @@
 						"MARIO HAT GEPUPST",
 						"WIE HEISST DIE MUTTER VON NIKI LAUDA? + + + MAMA LAUDAAA + + + MAMA LAUDAAA",
 						"LISA IST AUCH DA",
+						"MARIO BRAUCHT TALENT",
 						"HIER BLÖDSIN EINFÜGEN",
 						"IST DAS KUNST ODER KANN DAS WEG?",
-						"MARIO BRAUCHT TALENT",
-						"<img src='pics\/meck.png' height='100px'>",
+						"<img src='pics\/meck.png' height='120'>",
+						"<img src='pics\/bo.png' height='80'>",
 						"<img src='pics\/farny.png' height='100px'>",
 						"<img src='pics\/flasch.png' height='100px'>",
-						"<img src='pics\/emplong.png' height='100px'>",
+						"<img src='pics\/jacky.png' height='100px'>",
+						"<img src='pics\/acdc.png' height='100px'>",
+						"<img src='pics\/dart.png' height='100px'>",
+						"<img src='pics\/emplong.png' height='80'>",
 						"<img src='pics\/uni.png' height='100px'>",
 						"<img src='pics\/weizi.png' height='100px'>",
 						"HIER KÖNNTE IHRE WERBUNG STEHEN!"
@@ -224,7 +228,7 @@
 							playMusic("25", 0, 8359, 0.8);
 							break;
 						case 28:
-							//playMusic("neindochoh", 0, 2684, 0.8);
+							playMusic("neindochoh", 0, 2684, 0.8);
 							break;
 						case 30:
 							playMusic("stechvieh", 0, 2256, 1);
@@ -289,6 +293,15 @@
 					
 					// select video if matching number
 					switch(myVar) {
+						case 9:
+							playVideo("pipi", 0, 9800, 0);
+							break;
+						case 20:
+							playVideo("bird", 0, 6296, 0);
+							break;
+						case 28:
+							playVideo("neindochoh", 0, 2684, 0);
+							break;
 						case 32:
 							playVideo("cantina", 0, 6754, 0.9);
 							break;
@@ -323,8 +336,9 @@
                 } else {
                     counter--;
 					
-					// stop music if number was wrong
+					// stop music/video if number was wrong
 					pauseMusic();
+					pauseVideo();
                     
                     numberArray = arrayRemove(numberArray, myVar);
                     numberArrayUnsort = arrayRemove(numberArrayUnsort, myVar);
